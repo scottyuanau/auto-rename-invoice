@@ -17,12 +17,13 @@ now = datetime.now()
 #function to return files in a directory
 def fileInDirectory(my_dir: str):
     onlyfiles = [f for f in listdir(my_dir) if isfile(join(my_dir, f))]
-    return(onlyfiles)
+    return onlyfiles
 
 
 
 def listComparison(OriginalList: list, NewList: list):
-    differencesList = [x for x in NewList if x not in OriginalList] #Note if files get deleted, this will not highlight them
+    # Note if files get deleted, this will not highlight them
+    differencesList = [x for x in NewList if x not in OriginalList]
     return(differencesList)
 
 
@@ -30,6 +31,7 @@ def rename(filearr):
     for file in filearr:
         test = file.split('.')[0][-1]
         #only rename the file if it doesn't end with number
+        #if it ends with a letter, keep it
         try:
             test = int(test)
         except:
@@ -56,9 +58,9 @@ def fileWatcher(my_dir: str, pollTime: int):
         if 'watching' not in locals():  # Check if this is the first time the function has run
             previousFileList = fileInDirectory(PATH)
             watching = 1
-            print('Initial Folder')
-            print(previousFileList)
-            print('============')
+            print('Auto Rename Invoice')
+            print(f'Script running at background, check every {FREQUENCY} seconds.')
+            print('===================================')
 
         time.sleep(pollTime)
 
